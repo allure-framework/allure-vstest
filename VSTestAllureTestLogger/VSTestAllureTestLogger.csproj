@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Experimental.Collections">
+      <HintPath>..\packages\Microsoft.Experimental.Collections.1.0.3-alpha\lib\portable-net45+win8+wp8\Microsoft.Experimental.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel">
       <HintPath>..\..\..\..\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
@@ -43,9 +46,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllureEvents\TestCaseFailureWithErrorInfoEvent.cs" />
+    <Compile Include="AllureEvents\TestCaseFinishedWithTimeEvent.cs" />
+    <Compile Include="AllureEvents\TestCaseStartedWithTimeEvent.cs" />
+    <Compile Include="AllureEvents\TestSuiteFinishedWithTimeEvent.cs" />
+    <Compile Include="AllureEvents\TestSuiteStartedWithTimeEvent.cs" />
+    <Compile Include="AllureResultsUtils.cs" />
     <Compile Include="AllureTestLogger.cs" />
+    <Compile Include="AllureTestResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionOnlyContextAttributeValueReader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\allure-csharp-commons\AllureCSharpCommons\AllureCSharpCommons.csproj">
+      <Project>{0c358997-150b-4752-8b69-8b174167d730}</Project>
+      <Name>AllureCSharpCommons</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
