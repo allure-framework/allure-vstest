@@ -16,8 +16,10 @@ namespace VSTestAllureTestLogger
 {
     [ExtensionUri("logger://AllureTestLogger/v1")]
     [FriendlyName("Allure")]
-    public class AllureTestLogger : ITestLogger
+    public class AllureTestLogger : ITestLoggerWithParameters, ITestLogger
     {
+        const string RESULTS_PATH_PARAMETER_NAME = "ResultsPath";
+
         IDictionary<string, Assembly> mAssemblyMap = new Dictionary<string, Assembly>();
 
         IDictionary<string, Guid> mCategoryToIdMap = new Dictionary<string, Guid>();
@@ -40,6 +42,29 @@ namespace VSTestAllureTestLogger
             events.TestRunComplete += TestRunComplete;
         }
 
+        public void Initialize(TestLoggerEvents events, Dictionary<string, string> parameters)
+        {
+            Initialize(events, parameters["TestRunDirectory"]);
+
+            foreach (KeyValuePair<string, string> parameter in parameters)
+            {
+                Console.WriteLine(parameter.Key + ":" + RESULTS_PATH_PARAMETER_NAME);
+                if (String.Compare(parameter.Key, RESULTS_PATH_PARAMETER_NAME, true) == 0)
+                {
+                    string resultPath = parameter.Value;
+                    if (!resultPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
+                    {
+                        resultPath += Path.DirectorySeparatorChar;
+                    }
+
+                    if (!Directory.Exists(resultPath))
+                        Directory.CreateDirectory(resultPath);
+
+                    AllureConfig.ResultsPath = resultPath;
+                }
+            }
+        }
+
         void TestRunComplete(object sender, TestRunCompleteEventArgs e)
         {
             foreach (string category in mCategoryToEndTimeMap.Keys)
@@ -53,14 +78,14 @@ namespace VSTestAllureTestLogger
             TestResult testResult = e.Result;
 
             MethodInfo methodInfo = GetTestMethodInfo(testResult);
-            
+            /*
             Console.WriteLine("1: " + e.Result.DisplayName);
             Console.WriteLine("2: " + String.Join(",", e.Result.Properties.Select(x => x.ToString())));
             Console.WriteLine("3: " + e.Result.TestCase.DisplayName);
             Console.WriteLine("4: " + String.Join(",", e.Result.TestCase.Properties.Select(x => x.ToString())));
             Console.WriteLine("4: " + e.Result.TestCase.FullyQualifiedName);
             Console.WriteLine("5: " + String.Join(",", e.Result.TestCase.Traits.Select(x => x.Name + ":" + x.Value)));
-            
+            */
 
             string description =  GetDescription(methodInfo);
             IEnumerable<string> categories = GetCategories(methodInfo);
