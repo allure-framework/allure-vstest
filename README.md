@@ -36,3 +36,14 @@ If you want the output to be written to another location other than the current 
 ```
 vstest.console.exe /logger:Allure;ResultsPath=<some dir> <test dll>.dll
 ```
+
+Compiling
+=========
+Make sure you have a reference to Microsoft.VisualStudio.TestPlatform.ObjectModel.dll from:
+```
+C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow
+```
+or
+```
+C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow
+```
