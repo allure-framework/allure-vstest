@@ -1,7 +1,7 @@
 allure-vstest-logger
 ====================
 
-This is a logger for the vstest.console.exe that generates an [https://github.com/allure-framework](allure) compatible xml using the [https://github.com/allure-framework/allure-csharp-commons](allure-csharp-commons)
+This is a logger for the vstest.console.exe that generates an [allure](https://github.com/allure-framework) compatible xml using the [allure-csharp-commons](https://github.com/allure-framework/allure-csharp-commons)
 
 
 Installation
