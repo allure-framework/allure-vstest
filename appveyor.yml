@@ -1,5 +1,18 @@
 configuration: Debug
 
+init:
+ - git config --global core.autocrlf false
+
+# branches to build
+branches:
+  # whitelist
+  only:
+   - master
+
+# install (after repo cloning)
+install:
+ - git submodule update -q --init --recursive
+
 # restore NuGet packages before running MSBuild
 before_build:
 - nuget restore
