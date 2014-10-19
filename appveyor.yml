@@ -22,3 +22,8 @@ before_build:
 build:
  verbosity: detailed
  project: VSTestAllureTestLogger.sln
+
+
+
+# to disable automatic tests 
+test: off
