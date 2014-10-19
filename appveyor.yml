@@ -15,6 +15,7 @@ install:
 
 # restore NuGet packages before running MSBuild
 before_build:
+- nuget restore allure-csharp-commons\AllureCSharpCommons.sln
 - nuget restore
  
 # package Web Application project for Web Deploy
